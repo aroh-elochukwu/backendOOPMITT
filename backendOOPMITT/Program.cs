@@ -1,7 +1,7 @@
 ﻿/*  
 
   Create a class "Student" that contains few student properties
-like (Name, Birthdate, Nationality)and 2 different constructors, one that takes only
+like (Name, BirthDate, Nationality)and 2 different constructors, one that takes only
 
 the name and another one that takes all the fields
 
@@ -19,9 +19,12 @@ LeaveCourse to handle the enrollment
 
 -Change the student class so the student can only have
 */
+
 Student Elo = new Student("Elo", "16th June", "Nigerian");
 Course SD419 = new Course("Wayo", 4, 3);
+School.Courses.Add(SD419);
 Course SD5000 = new Course("Something Something", 2, 2);
+School.Courses.Add(SD5000);
 Elo.JoinClass(SD419);
 Elo.JoinClass(SD5000);
 Console.WriteLine(Elo.Courses[0].Name);
@@ -78,4 +81,13 @@ class Course
         Duration = duration;
         Credits = credits;
     }
-    }
+
+ }
+
+
+
+static class School
+{
+    public static string Name { get; set; } = "MITT";
+    public static List<Course>  Courses = new List<Course>();
+}
