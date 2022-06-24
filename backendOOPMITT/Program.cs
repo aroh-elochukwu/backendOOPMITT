@@ -1,57 +1,52 @@
-﻿Calendar myCalendar = new Calendar();
+﻿/*  
 
-Date halloween = new Date("Halloween", 31);
-myCalendar.Dates.Add(halloween);
-Console.WriteLine(myCalendar.Dates.First().Title);
+  Create a class "Student" that contains few student properties
+like (Name, Birthdate, Nationality)and 2 different constructors, one that takes only
 
+the name and another one that takes all the fields
 
-class Calendar
+- Create another class called "Course", a course has
+a Name, Duration in months, and number of credits.
+
+- In the Student class, create another property for
+Students called "Courses", which is a list of courses
+that a student is enrolled in
+
+-In Student class, write two functions, JoinCourse and
+LeaveCourse to handle the enrollment
+
+-Also write a function PrintAllcourses in Student
+
+-Change the student class so the student can only have
+*/
+
+class Student
 {
     public string Name { get; set; }
-    public int year { get; set; }   
-    public List<Date> Dates { get; set; }
+    public string Birthdate { get; set; }
+    public string Nationality { get; set; }
+    public List<Course> Courses { get; set; }
 
-    public Calendar()
-    {
-        Name = "Year 2000";
-        year = 2000;
-        Dates = new List<Date>();
-    }
-
-    //Overload
-
-    public Calendar(string name, int year)
+    public Student(string name)
     {
         Name = name;
-        year = year;
-        Dates = new List<Date>();
+
+    }
+
+    public Student(string name, string birthdate, string nationality)
+    {
+        Name = name;
+        Birthdate = birthdate;
+        Nationality = nationality;
+            
     }
 }
 
-
-
-class Date
+class Course
 {
-    public string Title { get; set; }
-    private int _dayOfMonth { get; set; }
+    public string Name { get; set; }
+    public int Duration { get; set; }
+    public int Credits { get; set; }
 
-    public int DayOfMonth
-    {
-        get { return _dayOfMonth; }
-        set
-        {
-            if(value > 0 && value <= 31)
-            {
-                _dayOfMonth = value;
-            }
-        }
-       
-    }
-
-    public Date(string title, int day)
-    {
-        Title = title;
-        DayOfMonth = day;
-    }
 
 }
