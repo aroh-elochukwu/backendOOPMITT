@@ -2,6 +2,18 @@
 // provide a property to the parent Animal class
 // inherit Animal in your subclasses and give it a value in the constructor
 
+OldWorldSparrow franco = new OldWorldSparrow("Franco");
+Cat bernice = new Cat("Bernice");
+Console.WriteLine(franco.Fly());
+Console.WriteLine(franco.EatGrass());
+Console.WriteLine(bernice.RunFast());
+Console.WriteLine(bernice.AnimalClass);
+Console.WriteLine(bernice.NumOfLeg);
+
+
+
+
+
 interface IamHerbivorous
 {
     string EatGrass();
@@ -21,29 +33,62 @@ interface IFly
 class Animal
 {
     
-    public DentitionType Teeth { get; set; }
-    public string AnimalClassification { get; set; }
+    public LegNumber NumOfLeg { get; set; }
+    public AnimalClassification AnimalClass{ get; set; }
 
 }
 
-class 
-
-enum DentitionType
+class Cat: Animal, IRunfast
 {
-    incisors,
-    canines,
-    premolars,
-    molars,
-    thirdsMolars
+    public string Name { get; set; }
+    
+    public Cat(string name)
+    {
+        NumOfLeg = LegNumber.Four;
+        AnimalClass = AnimalClassification.Mammals;
+        Name = name;
+         
+    }
+
+    public string  RunFast()
+    {
+        return $"{Name} speeds off!! ";
+    }
+}
+
+class OldWorldSparrow: Animal, IamHerbivorous, IFly    
+{
+    public string Name { get; set; }
+    public OldWorldSparrow(string name)
+    {
+        AnimalClass = AnimalClassification.Birds;
+        NumOfLeg = LegNumber.Two;
+        Name = name;
+    }
+    public string EatGrass()
+    {
+        return $"{Name} is eating grass";
+    }
+
+    public string Fly()
+    {
+        return $"{Name} flies away";
+    }
+}
+enum LegNumber
+{
+    None,
+    Two,
+    Four
 
 }
 
 enum AnimalClassification
 {
-    fish,
-    amphibians,
-    reptiles,
-    mammals,
-    birds
+    Fish,
+    Amphibians,
+    Reptiles,
+    Mammals,
+    Birds
 }
 
