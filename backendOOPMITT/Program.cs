@@ -1,52 +1,119 @@
-﻿/*  
+﻿// Students and Courses
+// students can enroll in multiple courses
+// and a course can contain many enrolled students
 
-  Create a class "Student" that contains few student properties
-like (Name, Birthdate, Nationality)and 2 different constructors, one that takes only
+Department SoftwareDeveloper = new Department("Software Developer");
 
-the name and another one that takes all the fields
+Course courseOne = SoftwareDeveloper.CreateCourse("Intro to Logic");
+SoftwareDeveloper.CreateCourse("Parsing for Poets");
+SoftwareDeveloper.CreateCourse("How to Read Error Messages");
 
-- Create another class called "Course", a course has
-a Name, Duration in months, and number of credits.
+Student newStudent = SoftwareDeveloper.RegisterStudent("Alex Dane");
+Student secondStudent = SoftwareDeveloper.RegisterStudent("Otherperson Normalguy");
 
-- In the Student class, create another property for
-Students called "Courses", which is a list of courses
-that a student is enrolled in
+Console.WriteLine(newStudent.Department.Name);
 
--In Student class, write two functions, JoinCourse and
-LeaveCourse to handle the enrollment
+// Create a method on Department for registering a student in one of that department's courses
+// its parameters will be the Course Number, and the student number
 
--Also write a function PrintAllcourses in Student
+class Department
+{
+    public string Name { get; set; }
+    public ICollection<Student> Students { get; set; }
+    public ICollection<Course> Courses { get; set; }
+    public ICollection<Enrollment> Enrollments { get; set; }
+    public int CourseNumberCount { get; set; } = 1;
+    public int StudentCount { get; set; } = 1;
+    public Department(string name)
+    {
+        Name = name;
+        Students = new HashSet<Student>();
+        Courses = new HashSet<Course>();
+        Enrollments = new HashSet<Enrollment>();
+    }
 
--Change the student class so the student can only have
-*/
+    public Student GetStudent(int id)
+    {
+        Student student;
+
+        foreach (Student s in Students)
+        {
+            if (s.StudentId == id)
+            {
+                student = s;
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public Course CreateCourse(string courseTitle)
+    {
+        Course course = new Course(courseTitle, CourseNumberCount);
+        CourseNumberCount++;
+
+        Courses.Add(course);
+        course.Department = this;
+        return course;
+    }
+
+    public Student RegisterStudent(string name)
+    {
+        Student student = new Student(name, CourseNumberCount);
+        Students.Add(student);
+        StudentCount++;
+
+        student.Department = this;
+        return student;
+    }
+}
+
 
 class Student
 {
-    public string Name { get; set; }
-    public string Birthdate { get; set; }
-    public string Nationality { get; set; }
-    public List<Course> Courses { get; set; }
+    public string FullName { get; set; }
+    public int StudentId { get; set; }
+    public ICollection<Enrollment> Enrollments { get; set; }
+    public Department Department { get; set; }
 
-    public Student(string name)
+    public Student()
     {
-        Name = name;
-
+        Enrollments = new HashSet<Enrollment>();
     }
 
-    public Student(string name, string birthdate, string nationality)
+    public Student(string name, int id)
     {
-        Name = name;
-        Birthdate = birthdate;
-        Nationality = nationality;
-            
+        FullName = name;
+        StudentId = id;
+
+        Console.WriteLine($"Welcome to the school, {FullName}");
+        Enrollments = new HashSet<Enrollment>();
     }
 }
 
 class Course
 {
-    public string Name { get; set; }
-    public int Duration { get; set; }
-    public int Credits { get; set; }
+    public string Title { get; set; }
+    public int CourseNumber { get; set; }
+    public ICollection<Enrollment> Enrollments { get; set; }
+    public Department Department { get; set; }
 
+    public Course(string title, int courseNumber)
+    {
+        Title = title;
+        CourseNumber = courseNumber;
+        Enrollments = new HashSet<Enrollment>();
+    }
+}
 
+class Enrollment
+{
+    public Student Student { get; set; }
+    public Course Course { get; set; }
+
+    public Enrollment(Student student, Course course)
+    {
+        Student = student;
+        Course = course;
+    }
 }
